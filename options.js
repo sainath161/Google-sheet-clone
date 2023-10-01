@@ -169,3 +169,96 @@ function onChangeBackgroundColor(textColorInput) {
         activeOptionsState.backgroundColor = selectedColor;
     }
 }
+
+// Add Font Size Functionality
+function onChangeFontSize(fontSizeInput) {
+    let selectedSize = fontSizeInput.value;
+    if (activeCell) {
+        activeCell.style.fontSize = selectedSize;
+        activeOptionsState.fontSize = selectedSize;
+    }
+}
+
+// Add Copy Functionality
+function onCopy() {
+    if (activeCell) {
+        const textToCopy = activeCell.innerText;
+        navigator.clipboard.writeText(textToCopy).then(function () {
+            console.log('Text copied to clipboard');
+        }).catch(function (err) {
+            console.error('Unable to copy text: ', err);
+        });
+    }
+}
+
+// Add Cut Functionality
+function onCut() {
+    if (activeCell) {
+        const textToCut = activeCell.innerText;
+        navigator.clipboard.writeText(textToCut).then(function () {
+            activeCell.innerText = '';
+            console.log('Text cut and copied to clipboard');
+        }).catch(function (err) {
+            console.error('Unable to cut text: ', err);
+        });
+    }
+}
+
+// Add Paste Functionality
+function onPaste() {
+    if (activeCell) {
+        navigator.clipboard.readText().then(function (text) {
+            activeCell.innerText = text;
+            console.log('Text pasted from clipboard');
+        }).catch(function (err) {
+            console.error('Unable to paste text: ', err);
+        });
+    }
+}
+
+// Initialize default font style and font size
+let defaultFontStyle = "Monospace";
+let defaultFontSize = "16px";
+
+function applyFontStyleAndSize(cell, fontStyle, fontSize) {
+    cell.style.fontFamily = fontStyle;
+    cell.style.fontSize = fontSize;
+}
+
+function onChangeFontSize(fontSizeInput) {
+    let selectedFontSize = fontSizeInput.value;
+    if (activeCell) {
+        applyFontStyleAndSize(activeCell, activeOptionsState.fontFamily, selectedFontSize);
+        activeOptionsState.fontSize = selectedFontSize;
+    }
+}
+
+function loadGoogleFonts(fontName, fontStyle) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `https://fonts.googleapis.com/css?family=${fontName.replace(
+        /\s+/g,
+        "+"
+    )}:${fontStyle}`;
+    document.head.appendChild(link);
+}
+
+function onChangeFontStyle(fontDropdown) {
+    const selectedFont = fontDropdown.value;
+
+    if (activeCell) {
+        activeCell.style.fontFamily = selectedFont;
+        activeOptionsState.fontFamily = selectedFont;
+
+        // Load the selected Google Font dynamically with a default font style of "regular"
+        loadGoogleFonts(selectedFont, "regular");
+    }
+}
+
+document.getElementById("font-size").addEventListener("change", function () {
+    onChangeFontSize(this);
+});
+
+document.getElementById("copy").addEventListener("click", onCopy);
+document.getElementById("cut").addEventListener("click", onCut);
+document.getElementById("paste").addEventListener("click", onPaste);

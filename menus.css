@@ -19,3 +19,8 @@
 .menus>div:hover {
     background-color: #93969a;
 }
+
+.menus .material-icons,
+.menus .fas {
+    font-size: 18px;
+}
