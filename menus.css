@@ -1,0 +1,21 @@
+.menus {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.active-option {
+    background-color: #93969a;
+}
+
+.menus>div {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 4pxß;
+}
+
+.menus>div:hover {
+    background-color: #93969a;
+}
