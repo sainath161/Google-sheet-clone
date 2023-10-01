@@ -207,10 +207,10 @@ function onCut() {
 // Add Paste Functionality
 function onPaste() {
     if (activeCell) {
-        navigator.clipboard.readText().then(function (text) {
+        navigator.clipboard.readText().then(function(text) {
             activeCell.innerText = text;
             console.log('Text pasted from clipboard');
-        }).catch(function (err) {
+        }).catch(function(err) {
             console.error('Unable to paste text: ', err);
         });
     }
@@ -255,7 +255,8 @@ function onChangeFontStyle(fontDropdown) {
     }
 }
 
-document.getElementById("font-size").addEventListener("change", function () {
+// Add event listeners for font size, copy, cut, and paste
+document.getElementById("font-size").addEventListener("change", function() {
     onChangeFontSize(this);
 });
 
