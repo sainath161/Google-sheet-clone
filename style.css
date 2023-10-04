@@ -72,7 +72,6 @@
 
 #tool {
   background-color: aquamarine;
-  height: 6vh;
 }
 
 /* Dropdown container */
@@ -130,4 +129,27 @@
 /* Show dropdown on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+#active-cell {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#bold,
+#italic,
+#underlined {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.active-option {
+  background-color: #333;
+  color: #fff;
+}
+
+.text-align {
+  margin-right: 10px;
+  cursor: pointer;
 }
