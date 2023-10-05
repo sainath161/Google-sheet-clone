@@ -2,74 +2,37 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google Sheet Clone</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="menus.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./logo.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Excel</title>
 </head>
 
 <body>
-    <div id="tool">
-        <!-- File Dropdown -->
-        <div class="dropdown">
-            <button class="dropbtn">File</button>
-            <div class="dropdown-content">
-                <a href="#">New</a>
-                <a href="#">Open</a>
-                <a href="#">Save</a>
-                <a href="#">Save As</a>
-            </div>
-        </div>
+    <div class="container">
 
-        <!-- Home Dropdown -->
-        <div class="dropdown active">
-            <button class="dropbtn">Home</button>
+        <div class="page-actions-cont">
+            <div class="page-action">File</div>
+            <div class="page-action selected-page-action">Home</div>
+            <div class="page-action">Insert</div>
+            <div class="page-action">Layout</div>
+            <div class="page-action">Help</div>
         </div>
-
-        <!-- Insert Dropdown -->
-        <div class="dropdown">
-            <button class="dropbtn">Insert</button>
-            <div class="dropdown-content">
-                <a href="#">Insert Row</a>
-                <a href="#">Insert Column</a>
-                <a href="#">Insert Image</a>
-            </div>
-        </div>
-
-        <!-- Layout Dropdown -->
-        <div class="dropdown">
-            <button class="dropbtn">Layout</button>
-            <div class="dropdown-content">
-                <a href="#">Format Cells</a>
-                <a href="#">Merge Cells</a>
-                <a href="#">Cell Borders</a>
-            </div>
-        </div>
-
-        <!-- Help Dropdown -->
-        <div class="dropdown">
-            <button class="dropbtn">Help</button>
-            <div class="dropdown-content">
-                <a href="#">About</a>
-                <a href="#">FAQ</a>
-                <a href="#">Contact Us</a>
-            </div>
-        </div>
-    </div>
-    <div id="options">
-        <div class="menus">
-            <div class="material-icons" id="copy">file_copy</div>
-            <div class="material-icons" id="cut">content_cut</div>
-            <div class="material-icons" id="paste">content_paste</div>
-
-            <select id="font-style" onchange="onChangeFontStyle(this)">
-                <option value="Times New Roman" selected>Times New Roman</option>
+        <div class="cellprop-actions-cont">
+            <span class="material-icons copy">
+                content_copy
+            </span>
+            <span class="material-icons cut">
+                content_cut
+            </span>
+            <span class="material-icons paste">
+                content_paste
+            </span>
+            <select class="font-family-prop">
+                <option value="Times New Roman">Times New Roman</option>
                 <option value="Arial">Arial</option>
                 <option value="Caveat">Caveat</option>
                 <option value="Confortaa">Confortaa</option>
@@ -104,14 +67,11 @@
                 <option value="Trebuchet MS">Trebuchet MS</option>
                 <option value="Ubuntu">Ubuntu</option>
                 <option value="Verdana">Verdana</option>
-                <!-- Add more font styles as needed -->
             </select>
-
-            <!-- Font Size Control with Default Font Size Display -->
-            <select id="font-size" onchange="onChangeFontSize(this)">
+            <select class="font-size-prop">
                 <option value="12px">12</option>
                 <option value="14px">14</option>
-                <option value="16px" selected>16</option>
+                <option value="16px">16</option>
                 <option value="18px">18</option>
                 <option value="20px">20</option>
                 <option value="20px">22</option>
@@ -153,56 +113,75 @@
                 <option value="96px">94</option>
                 <option value="96px">96</option>
             </select>
-
-            <div id="bold" onclick="onClickBold(this)">B</div>
-            <div id="italic" onclick="onClickItalic(this)">I</div>
-            <div id="underlined" onclick="onClickUnderline(this)">U</div>
-
-            <div class="material-icons active-option text-align" data-value="start" onclick="onClickTextAlign(this)">
+            <span class="material-icons bold">
+                format_bold
+            </span>
+            <span class="material-icons italic">
+                format_italic
+            </span>
+            <span class="material-icons underline">
+                format_underlined
+            </span>
+            <span class="left material-icons alignment">
                 format_align_left
-            </div>
-            <div class="material-icons text-align" data-value="center" onclick="onClickTextAlign(this)">
+            </span>
+            <span class="center material-icons alignment">
                 format_align_center
-            </div>
-            <div class="material-icons text-align" data-value="right" onclick="onClickTextAlign(this)">
+            </span>
+            <span class="right material-icons alignment">
                 format_align_right
+            </span>
+            <div class="color-prop">
+                <span class="material-icons">
+                    format_color_text
+                </span>
+                <input type="color" class="font-color-prop">
             </div>
-
-            <div id="text-color">
-                <label for="color-picker"><span class="material-icons"> border_color </span></label>
-                <input onchange="onChangeTextColor(this)" type="color" id="color-picker" style="width: 0; height: 0;" />
+            <div class="color-prop">
+                <span class="material-icons">
+                    format_color_fill
+                </span>
+                <input type="color" class="BGcolor-prop">
             </div>
-
-            <div id="bg-color">
-                <label for="bgcolor-picker"><span class="material-icons"> format_color_fill </span></label>
-                <input onchange="onChangeBackgroundColor(this)" type="color" id="bgcolor-picker"
-                    style="width: 0; height: 0" />
-            </div>
-
-            <div id="downloadButton" onclick="downloadFile()">
-                <i class="material-icons">cloud_download</i>
-            </div>
-
-            <input type="file" id="openFileInput" style="display: none;" accept=".xls, .xlsx"
-                onchange="openFile(event)" />
-
-            <div id="openButton" onclick="openFileInput.click()">
-                <i class="material-icons">cloud_upload</i>
+            <span class="material-icons download">
+                cloud_download
+            </span>
+            <span class="material-icons open">
+                cloud_upload
+            </span>
+        </div>
+        <div class="formula-actions-cont">
+            <input type="text" readonly class="address-bar">
+            <img class="formula-icon" src="https://img.icons8.com/ios/50/000000/formula-fx.png" />
+            <input type="text" class="formula-bar">
+        </div>
+        <div class="grid-cont">
+            <div class="top-left-dummy-box"></div>
+            <div class="address-col-cont"></div>
+            <div class="cells-cont">
+                <div class="address-row-cont"></div>
             </div>
         </div>
+        <div class="sheet-actions-cont">
+            <div class="sheet-add-icon">
+                <span class="material-icons">
+                    post_add
+                </span>
+            </div>
+            <div class="sheets-folder-cont">
 
-        <span id="active-cell">null</span>
+            </div>
+        </div>
     </div>
 
-    <main style="width: 98.93vw; margin: auto; height: 83.83vh; overflow: scroll">
-        <div id="header">
-            <b style="position: sticky; left: 0; top: 0; background-color: rgb(58, 58, 58)"></b>
-        </div>
-        <section id="body"></section>
-    </main>
-
-    <script src="./options.js"></script>
-    <script src="./script.js"></script>
+    <script src="./grid.js"></script>
+    <script src="./cycleValidation.js"></script>
+    <script src="./sheetsHandling.js"></script>
+    <script src="./cell-properties.js"></script>
+    <script src="./cyclicPathTrace.js"></script>
+    <script src="./formula.js"></script>
+    <script src="./cutCopyPaste.js"></script>
+    <script src="./openSave.js"></script>
 </body>
 
 </html>
