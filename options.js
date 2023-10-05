@@ -263,3 +263,66 @@ document.getElementById("font-size").addEventListener("change", function() {
 document.getElementById("copy").addEventListener("click", onCopy);
 document.getElementById("cut").addEventListener("click", onCut);
 document.getElementById("paste").addEventListener("click", onPaste);
+
+// JavaScript for Download and Open Functionality
+function downloadFile() {
+    if (activeCell) {
+        const csvContent = activeCell.innerText;
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        a.style.display = "none";
+        document.body.appendChild(a);
+
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    }
+}
+
+function openFile(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const data = e.target.result;
+            const workbook = XLSX.read(data, { type: 'binary' });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            // Clear the current sheet
+            const sheetBody = document.getElementById('body');
+            sheetBody.innerHTML = '';
+
+            // Populate the sheet with the loaded data
+            jsonData.forEach(rowData => {
+                const row = document.createElement('div');
+                row.className = 'row';
+                rowData.forEach(cellData => {
+                    const cell = document.createElement('div');
+                    cell.contentEditable = 'true';
+                    cell.className = 'cell';
+                    cell.innerText = cellData;
+                    row.appendChild(cell);
+                });
+                sheetBody.appendChild(row);
+            });
+        };
+
+        reader.readAsBinaryString(file);
+    }
+}
+
+// Add event listeners for download and open buttons
+document.getElementById('downloadButton').addEventListener('click', downloadFile);
+const openFileInput = document.getElementById('openFileInput');
+document.getElementById('openButton').addEventListener('click', () => {
+    openFileInput.click();
+});
+openFileInput.addEventListener('change', openFile);

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="menus.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.full.min.js"></script>
 </head>
 
 <body>
@@ -174,6 +177,17 @@
                 <label for="bgcolor-picker"><span class="material-icons"> format_color_fill </span></label>
                 <input onchange="onChangeBackgroundColor(this)" type="color" id="bgcolor-picker"
                     style="width: 0; height: 0" />
+            </div>
+
+            <div id="downloadButton" onclick="downloadFile()">
+                <i class="material-icons">cloud_download</i>
+            </div>
+
+            <input type="file" id="openFileInput" style="display: none;" accept=".xls, .xlsx"
+                onchange="openFile(event)" />
+
+            <div id="openButton" onclick="openFileInput.click()">
+                <i class="material-icons">cloud_upload</i>
             </div>
         </div>
 

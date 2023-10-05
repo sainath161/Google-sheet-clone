@@ -139,7 +139,9 @@
 
 #bold,
 #italic,
-#underlined {
+#underlined,
+#downloadButton,
+#openButton {
   margin-right: 10px;
   cursor: pointer;
 }
@@ -152,4 +154,9 @@
 .text-align {
   margin-right: 10px;
   cursor: pointer;
+}
+
+#downloadButton,
+#openButton {
+  border: none;
 }
